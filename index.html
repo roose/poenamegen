@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Path of Exile Character Name Generator</title>
+  <style>
+    html,
+    body {
+      height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      background: #f4e1c3;
+    }
+
+    a {
+      color: brown;
+    }
+
+    .groups {
+      padding: 20px;
+      margin: 0;
+      list-style-type: none;
+      font-family: "Palatino Linotype", serif;
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      width: 90%;
+      background: #f4e1c3;
+      transform: translateY(-30px);
+      justify-content: center;
+    }
+    @media (min-width: 768px) {
+      .groups {
+        font-size: 50px;
+        padding: 40px;
+        width: 70%;
+      }
+    }
+    .groups_item {
+      padding: 0;
+    }
+
+    .tools {
+      position: absolute;
+      bottom: 20px;
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tools .go {
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-family: "Palatino Linotype", serif;
+      background: #d19638;
+      border: 1px solid #000;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="groups" id="groups"><span class="groups_item groups_item-1"></span><span class="groups_item groups_item-2"></span>
+  <span class="groups_item groups_item-3"></span>
+  <span class="groups_item groups_item-4"></span></div>
+
+  <div class="tools">
+    <button class="go" id="go">Generate</button>
+    <!-- <a href="#" id="download" download>Save</a> -->
+  </div>
+
+  <script>
+    const lor = [
+      ['Phre','Chi', 'Inno', 'Sin', 'At', 'Dory', 'Az', 'Tar', 'Veru', 'Caspi', 'Iza', 'Cadi', 'Mali', 'Doed', 'Geo', 'Voll', 'Victa', 'On', 'Ad', 'Rig', 'Ezo', 'Ka', 'Kar', 'Mara', 'Glar', 'Sen', 'Gem', 'Astra', 'Vasti', 'Sko', 'Ein', 'Gri', 'Mar', 'Shav', 'Bru', 'Titu', 'Vas', 'Desh', 'Mala', 'Sola', 'Luna', 'Dia', 'Pie', 'Romi', 'Peran', 'Ca', 'Domi', 'Gravi', 'Ase', 'Fair', 'Dares', 'Hyr', 'Lavian', 'Zer', 'Hrim', 'Bar', 'Veri', 'El', 'Sha', 'Drox', 'Si', 'Za', 'Cas', 'Be', 'Va', 'Sio', 'Arohon', 'Hine', 'Kita', 'Ngama', 'Rama', 'Tasa', 'Taw', 'Tuko', 'Vala', 'Bry', 'Car', 'En', 'Had', 'Hil', 'Joy', 'Krai', 'Lot', 'Mait', 'Mis', 'Ol', 'Sa', 'Rala', 'Da', 'Ara', 'Gruth', 'Abbe', 'Rys', 'Tsoa', 'Gre', 'Yu', 'Sha', 'Garu', 'Trini', 'Gari', 'Tol', 'Bes', 'Nes', 'Tark', 'Ali', 'Era', 'Hele', 'Silk', 'Yee', 'Oak', 'Cla', 'Har', 'Ki', 'Oy', 'Peta', 'Va', 'Tasu', 'Ban', 'La', 'Utu', 'Vilen', 'Ira', 'Cata', 'Ha', 'Leo', 'To', 'Vag', 'Vori', 'Al', 'Jun', 'Ni', 'Kir', 'Osha', 'Octa'],
+      ['cia', 'tus', 'cence', 'ziri', 'ani', 'meri', 'cus', 'so', 'garo', 're', 'fri', 'rio', 'dar', 'wald', 'myr', 'om', 'ui', 'keth', 'ryn', 'tari', 'ling', 'li', 'ri', 'the', 'har', 'gor', 'ceus', 'ronne', 'tiri', 'ret', 'chai', 'ris', 'lla', 'ty', 'ra', 'dus', 'vas', 'nus', 'cius', 'nath', 'graves', 'ri', 'ga', 'phi', 'nor', 'an', 'tania', 'der', 'per', 'rus', 'na', 'sia', 'ast', 'al', 'sa', 'gui', 'kora', 'va', 'hu', 'ko', 'lio', 'hoa', 'hama', 'den', 'far', 'rey', 'lock', 'tyn', 'lin', 'moa', 'sy', 'lem', 'kesh', 'varo', 'kaali', 'kul', 'rath', 'latha', 'goth', 'ust', 'gul', 'kari', 'khan', 'valdi', 'man', 'tel', 'leigh', 'mir', 'rissa', 'gan', 'un', 'nja', 'ni', 'non', 'ta', 'sha', 'rina', 'reon', 'ku', 'ci', 'ac', 'bi', 'vius']
+    ];
+
+    const go = document.getElementById('go');
+    const elems = document.getElementsByClassName('groups_item');
+
+    function random(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+
+    go.addEventListener('click', () => {
+      for (var i = 0; i < lor.length; i++) {
+        elems[i].innerHTML = random(lor[i])
+      }
+
+      const node = document.getElementById('groups');
+
+      domtoimage.toPng(node)
+        .then(function(dataUrl) {
+          let link = document.getElementById('download');
+          link.href = dataUrl;
+        })
+        .catch(function(error) {
+          console.error('oops, something went wrong!', error);
+        });
+    })
+
+    go.click();
+  </script>
+
+</body>
+</html>
